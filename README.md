@@ -30,4 +30,59 @@ show dbs # Este comando mostrará os bancos de dados existentes
 ```
 Agora o pulo do gato:
 ```sql
-use NomeDecidido # Mesmo que não exista um banco com esse nome, o Mongo criará automaticamente. 
+use NomeBanco # Se você colocar um nome que não existe na lista, Será criado pelo mongo automaticamente
+```
+
+
+<h5 align="center">Antes da gente seguir, vamos ver algumas diferenças de conceitos <h5>
+  
+  MySQL         | MongoDB
+--------------  | ------
+Banco de dados  | Banco de dados
+Tabela          | Coleção
+Linha           | Documento
+Coluna          | Campo
+Junção de Tabela| Documento incorporado
+Primary Key     | Fornecido pelo próprio mongo
+
+### 4. Vamos aos nossos comandos? 
+Para tornar mais intuitivo o nosso aprendizado, tanto o meu, quanto o de vocês, vou dividir cada comando em subcapítulos. A minha intenção não é fazer comparações entre os comandos dos bancos de dados relacional e não relacional. Inclusive tenho um tutorial imcompleto, até mesmo momento, sobre SQL. Sem mais demoras, vamos começar a brincadeira. 
+
+**4.1 Criado uma collection**<br>
+Se olharmos as diferenças de conceitos, veremos que coleção é uma referência para a tabela do banco de dados relacional. Isso significa que é nela onde poderemos adicionar os nossos dados e atributos
+```Javascript
+db.createcollection("NomeDesejado")
+```
+**4.2 Inserindo dados numa coleção**<br>
+Inserir dados numa coleção tem a mesma estrutura da construção de uma JSON. Basta chamar o comando e adicionar os dados necessários
+```JavaScript
+db.NomeColecao.insert
+            ({
+                     Livro: "Tudo sobre Mongo",
+                     Autor: "Batman",
+                     Cidade: "A colina dos Hobbits"
+            })
+```
+
+<h5 align="center">Um pouco sobre consultas <h5>
+  
+**4.3 Vamos falar das consultas?**<br>
+
+Assim como no banco relacional, NoSQL também tem diversas formas de fazer consultas. Este é o comando padrão
+```JavaScript
+db.NomeColecao.find()
+```
+
+**4.3.1. Consultando determinado valor**<br>
+Caso você queira encontrar algum dado especifico, basta chama-lo com o comando find. Vamos a um exemplo para que possamos compreender melhor
+```JavaScript
+db.nomeColecao.find({ autor: { $eq: Batman }})
+```
+
+**4.3.2. Consultando dados entre valores especificos**<br>
+Imagina que você ta lá de boas analisando os dados do seu site e pensa: "Quantas pessoas entre 20 e 30 anos acessam o meu site?". Não é impossível saber, basta usar essa mágica aqui 
+
+```JavaScript
+db.MInhaColecao.find(
+                     { idade: { $gt: 20, $lt: 30 } }
+  )
